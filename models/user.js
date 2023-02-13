@@ -17,9 +17,20 @@ const userSchema = new Schema({
         }
     },
     thoughts:{
+        type:mongoose.Types.ObjectId,
+        ref:'thought'
 
     },
     friends:{
+        type:mongoose.Types.ObjectId,
+        ref:'user'
         
     }
-})
+});
+userSchema.virtual('friendCount').get(()=>{
+    return this.friends.length;
+});
+
+const user = model ('user',userSchema);
+
+module.exports = user;
